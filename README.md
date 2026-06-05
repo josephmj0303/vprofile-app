@@ -109,4 +109,5 @@ Review the Dockerfiles and related environment definitions before building conta
 - Ensure all external services are reachable from the deployment environment.
 - Confirm MySQL and RabbitMQ credentials match the values in `application.properties`.
 - If JSP pages fail to render, verify the servlet container is configured for Jakarta Servlet 6/JSP support.
-
+## License
+This repository does not include a license file. Add one if you want to publish or share the project publicly.
