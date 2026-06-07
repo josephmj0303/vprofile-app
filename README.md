@@ -1,113 +1,193 @@
-# VProfile Webapp
-###
-## Overview
+# VProfile GitOps EKS Platform
 
-Visualpathit VProfile is a Java web application built as a WAR package using Spring MVC, Spring Security, Spring Data JPA, Hibernate, RabbitMQ, Elasticsearch, and MySQL.
+Production-grade GitOps implementation of the VProfile application on AWS EKS using Terraform, ArgoCD, GitHub Actions, Helm, Amazon ECR, SonarQube, and Slack Notifications.
 
-The project provides user profile management, authentication, search integration, messaging support, and file upload features through a JSP-based web interface.
+---
 
-## Key Features
+## 🚀 Architecture
 
-- Spring MVC web application with JSP views
-- Spring Security authentication and authorization
-- MySQL database persistence via Spring Data JPA and Hibernate
-- RabbitMQ messaging integration
-- Elasticsearch client support for search-related features
-- Memcached configuration for caching support
-- File upload support with multipart limits configured
+![Architecture](docs/images/architecture-diagram.png)
 
-## Repository Structure
+---
 
-- `src/main/java/` – Java source code
-- `src/main/resources/` – application configuration and SQL scripts
-- `src/main/webapp/` – JSP views, static resources, and web configuration
-- `src/test/java/` – unit and integration tests
-- `Docker-files/` – Docker artifacts for app, db, and web deployment
-- `.github/workflows/ci.yml` – CI pipeline definition
+## 📌 Project Overview
 
-## Prerequisites
+This project demonstrates an end-to-end GitOps workflow for deploying a Java-based application on AWS EKS.
 
-- Java 17 JDK
-- Maven 3.6+ or compatible
-- MySQL server
-- RabbitMQ server
-- Elasticsearch 7.x compatible with the configured client version
-- A servlet container or Java EE application server to deploy the generated WAR
+The platform follows GitOps principles where application changes are automatically deployed through ArgoCD after successful CI/CD validation and container image publication.
 
-## Configuration
+### Key Features
 
-The application uses `src/main/resources/application.properties` for runtime settings.
+* Infrastructure provisioning using Terraform
+* AWS EKS managed Kubernetes cluster
+* GitHub Actions based CI/CD pipelines
+* SonarQube quality gate validation
+* Docker image build and publishing to Amazon ECR
+* Helm-based Kubernetes deployments
+* ArgoCD Auto Sync and Self-Healing
+* AWS Load Balancer Controller (ALB Ingress)
+* IRSA (IAM Roles for Service Accounts)
+* Slack deployment notifications
 
-Important configuration values include:
+---
 
-- `jdbc.url`, `jdbc.username`, `jdbc.password` – MySQL connection details
-- `rabbitmq.address`, `rabbitmq.port`, `rabbitmq.username`, `rabbitmq.password` – RabbitMQ connection
-- `elasticsearch.host`, `elasticsearch.port`, `elasticsearch.cluster` – Elasticsearch connection
-- `memcached.active.host`, `memcached.active.port` – Memcached configuration
+## 📂 Repository Structure
 
-### Default local settings
+This project is split into three repositories:
 
-- MySQL host: `vprodb:3306`
-- MySQL database: `accounts`
-- MySQL user: `root`
-- MySQL password: `vprodbpass`
-- RabbitMQ host: `vpromq01`
-- RabbitMQ port: `5672`
-- Elasticsearch host: `localhost`
-- Elasticsearch port: `9300`
+| Repository            | Purpose                                       |
+| --------------------- | --------------------------------------------- |
+| vprofile-app          | Application source code and CI/CD pipelines   |
+| vprofile-gitops       | Helm charts and ArgoCD deployment manifests   |
+| vprofile-gitops-infra | Terraform infrastructure and EKS provisioning |
+```
+vprofile-app/
+├── .github
+│   └── workflows
+│       └── ci.yml
+├── Docker-files
+│   ├── app
+│   │   ├── Dockerfile
+│   │   └── multistage
+│   ├── db
+│   │   ├── Dockerfile
+│   │   └── db_backup.sql
+│   └── web
+│       ├── Dockerfile
+│       └── nginvproapp.conf
+├── README.md
+├── pom.xml
+├── sonar-project.properties
+├── sonar-setup.sh
+├── src
+└── docs
+    └── images
+        ├── architecture-diagram.png
+        ├── pr-validation-pipeline.png
+        ├── deployment-pipeline.png
+        ├── sonarqube-dashboard.png
+        ├── ecr-repo.png
+        ├── argocd-application.png
+        ├── argocd-resource-tree.png
+        ├── eks-cluster.png
+        ├── slack-notification.png
+        └── vprofile-application.png
 
-> Update these values to match your deployment environment before running the application.
 
-## Build
-
-From the project root:
-
-```bash
-mvn clean package
 ```
 
-The build produces a WAR file under `target/`.
+### Related Repositories
 
-## Run
+* https://github.com/josephmj0303/vprofile-gitops
+* https://github.com/josephmj0303/vprofile-gitops-infra
 
-### Deploy to a servlet container
+---
 
-Deploy the generated `target/vprofile.war` to your preferred servlet container such as Apache Tomcat, Jetty, or WildFly.
+## 🔄 CI/CD & GitOps Workflow
 
-### Run with Maven Jetty plugin
+1. Developer pushes code to GitHub.
+2. Pull Request triggers:
 
-If the project includes the Jetty Maven plugin, you can run:
+   * Maven Build
+   * Unit Tests
+   * Checkstyle
+   * SonarQube Analysis
+   * Quality Gate Validation
+3. Merge to main branch triggers:
 
-```bash
-mvn jetty:run
-```
+   * Docker Image Build
+   * Push Image to Amazon ECR
+   * Update Helm values.yaml
+   * Commit changes to GitOps repository
+4. ArgoCD detects Git changes.
+5. ArgoCD synchronizes workloads to AWS EKS.
+6. Slack notifications report pipeline status.
 
-Then open the application in your browser at the Jetty URL shown in the console.
+---
 
-## Tests
+## 📸 Screenshots
 
-Run unit tests with:
+### Pull Request Validation
 
-```bash
-mvn test
-```
+![PR Validation](docs/images/pr-validation-pipeline.png)
 
-## Docker Notes
+### Deployment Pipeline
 
-The repository contains Docker-related files under `Docker-files/` for application, database, and web container deployment.
+![Deployment Pipeline](docs/images/deployment-pipeline.png)
 
-Review the Dockerfiles and related environment definitions before building containers.
+### SonarQube Quality Gate
 
-## Useful Files
+![SonarQube](docs/images/sonarqube-dashboard.png)
 
-- `src/main/webapp/WEB-INF/web.xml` – web application configuration
-- `src/main/resources/application.properties` – runtime property configuration
-- `src/main/resources/accountsdb.sql` – database script for account data
+### Amazon ECR Repository
 
-## Troubleshooting
+![ECR](docs/images/ecr-repo.png)
 
-- Ensure all external services are reachable from the deployment environment.
-- Confirm MySQL and RabbitMQ credentials match the values in `application.properties`.
-- If JSP pages fail to render, verify the servlet container is configured for Jakarta Servlet 6/JSP support.
-## License
-This repository does not include a license file. Add one if you want to publish or share the project publicly.
+### ArgoCD Application
+
+![ArgoCD](docs/images/argocd-application.png)
+
+### ArgoCD Resource Tree
+
+![ArgoCD Resources](docs/images/argocd-resource-tree.png)
+
+### AWS EKS Cluster
+
+![EKS](docs/images/eks-cluster.png)
+
+### Slack Notifications
+
+![Slack](docs/images/slack-notification.png)
+
+### Running Application
+
+![Application](docs/images/vprofile-application.png)
+
+---
+
+## ⚙️ Technology Stack
+
+* AWS EKS
+* Terraform
+* GitHub Actions
+* ArgoCD
+* Helm
+* Docker
+* Amazon ECR
+* SonarQube
+* Slack
+* Maven
+* Java
+
+---
+
+## 🧠 Results
+
+* Fully automated GitOps deployment workflow
+* Zero manual Kubernetes deployments
+* Automated image versioning and releases
+* Continuous quality validation through SonarQube
+* Centralized deployment visibility via Slack
+* Self-healing Kubernetes deployments through ArgoCD
+
+---
+
+## 📈 Future Enhancements
+
+* Prometheus Monitoring
+* Grafana Dashboards
+* ArgoCD Notifications
+* Trivy Container Scanning
+* External Secrets Operator
+* Multi-Environment Deployments (Dev / Stage / Prod)
+
+---
+
+## 👨‍💻 Author
+
+**Joseph MJ**
+
+DevOps Porfolio Project
+
+DevOps Engineer | AWS | Kubernetes | Terraform | GitOps | CI/CD
+
