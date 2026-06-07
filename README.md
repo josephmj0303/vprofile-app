@@ -1,5 +1,18 @@
 # VProfile GitOps EKS Platform
 
+![AWS](https://img.shields.io/badge/AWS-EKS-orange?logo=amazonaws)
+![Terraform](https://img.shields.io/badge/Terraform-IaC-623CE4?logo=terraform)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-EKS-326CE5?logo=kubernetes)
+![ArgoCD](https://img.shields.io/badge/ArgoCD-GitOps-EF7B4D?logo=argo)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-CI%2FCD-2088FF?logo=githubactions)
+![Helm](https://img.shields.io/badge/Helm-Charts-0F1689?logo=helm)
+![Docker](https://img.shields.io/badge/Docker-Containers-2496ED?logo=docker)
+![Amazon ECR](https://img.shields.io/badge/Amazon-ECR-FF9900?logo=amazonaws)
+![SonarQube](https://img.shields.io/badge/SonarQube-Quality_Gates-4E9BCD?logo=sonarqube)
+![Slack](https://img.shields.io/badge/Slack-Notifications-4A154B?logo=slack)
+![Java](https://img.shields.io/badge/Java-21-red?logo=openjdk)
+![Maven](https://img.shields.io/badge/Maven-Build-C71A36?logo=apachemaven)
+
 Production-grade GitOps implementation of the VProfile application on AWS EKS using Terraform, ArgoCD, GitHub Actions, Helm, Amazon ECR, SonarQube, and Slack Notifications.
 
 ---
