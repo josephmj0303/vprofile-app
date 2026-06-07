@@ -183,12 +183,13 @@ vprofile-app/
 
 ---
 
-🔒 Source Code Notice
-This repository intentionally excludes application source code.
+## 🔒 Source Code Notice
 
-To simulate real-world enterprise practices
-To protect application-level intellectual property
-To focus this project on DevOps engineering capabilities
+This repository intentionally excludes application source code:
+
+- To simulate real-world enterprise practices
+- To protect application-level intellectual property
+- To focus this project on DevOps engineering capabilities
 
 ---
 
