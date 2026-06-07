@@ -16,6 +16,17 @@
 Production-grade GitOps implementation of the VProfile application on AWS EKS using Terraform, ArgoCD, GitHub Actions, Helm, Amazon ECR, SonarQube, and Slack Notifications.
 
 ---
+## 📂 Related Repositories
+This project is split into three repositories:
+
+| Repository            | Purpose                                       |
+| --------------------- | --------------------------------------------- |
+| [vprofile-app](https://github.com/josephmj0303/vprofile-app)         | Application source code and CI/CD pipelines   |
+| [vprofile-gitops](https://github.com/josephmj0303/vprofile-gitops)      | Helm charts and ArgoCD deployment manifests   |
+| [vprofile-gitops-infra](https://github.com/josephmj0303/vprofile-gitops-infra) | Terraform infrastructure and EKS provisioning |
+
+
+---
 
 ## 🚀 Architecture
 
@@ -46,13 +57,6 @@ The platform follows GitOps principles where application changes are automatical
 
 ## 📂 Repository Structure
 
-This project is split into three repositories:
-
-| Repository            | Purpose                                       |
-| --------------------- | --------------------------------------------- |
-| vprofile-app          | Application source code and CI/CD pipelines   |
-| vprofile-gitops       | Helm charts and ArgoCD deployment manifests   |
-| vprofile-gitops-infra | Terraform infrastructure and EKS provisioning |
 ```
 vprofile-app/
 ├── .github
@@ -85,15 +89,7 @@ vprofile-app/
         ├── eks-cluster.png
         ├── slack-notification.png
         └── vprofile-application.png
-
-
 ```
-
-### Related Repositories
-
-* https://github.com/josephmj0303/vprofile-gitops
-* https://github.com/josephmj0303/vprofile-gitops-infra
-
 ---
 
 ## 🔄 CI/CD & GitOps Workflow
