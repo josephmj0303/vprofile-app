@@ -59,7 +59,7 @@ vprofile-app/
 ├── pom.xml
 ├── sonar-project.properties
 ├── sonar-setup.sh
-├── src
+├── src               # Application Source Code (Private)
 └── docs
     └── images
         ├── architecture-diagram.png
@@ -180,6 +180,15 @@ vprofile-app/
 * Trivy Container Scanning
 * External Secrets Operator
 * Multi-Environment Deployments (Dev / Stage / Prod)
+
+---
+
+🔒 Source Code Notice
+This repository intentionally excludes application source code.
+
+To simulate real-world enterprise practices
+To protect application-level intellectual property
+To focus this project on DevOps engineering capabilities
 
 ---
 
