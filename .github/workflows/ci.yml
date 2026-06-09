@@ -64,6 +64,8 @@ jobs:
         with:
           pollingTimeoutSec: 600
 
+  # Integrate ECR Repository
+
   docker-build-push:
     if: github.event_name == 'push'
     name: Build Docker image and push to ECR
