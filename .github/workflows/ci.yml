@@ -108,6 +108,8 @@ jobs:
           echo "ecr_image=${IMAGE_NAME}" >> $GITHUB_OUTPUT
           echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
 
+  # Automate Helm image updates
+
   update-helm:
     if: github.event_name == 'push'
     name: Update Helm values in separate repo
